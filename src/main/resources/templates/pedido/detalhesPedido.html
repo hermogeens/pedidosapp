@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<title>PedidosApp</title>
+	 <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      
+      <link rel="stylesheet" href="style/styleCss.css"/>
+</head>
+<body>
+
+	<header>
+		<nav class="menu">
+		    <div class="nav-wrapper">
+		      <a href="#" class="brand-logo">Pedido</a>
+		      <ul id="nav-mobile" class="right hide-on-med-and-down">
+		        <li><a href="/pedidos" class="waves-effect waves-light btn"><i class="material-icons left">add_circle_outline</i>Lista de pedido</a></li>
+		      </ul>
+		    </div>
+		</nav>
+	</header>
+	
+	<div th:each="pedido : ${pedido}" class="container detalhesPedido">
+	<h5>Detalhes do Pedido</h5>
+		<div class="row">
+			<p>Nome: <span th:text="${pedido.nome}"></span></p>
+			<p>Local: <span th:text="${pedido.local}"></span></p>
+			<p>Data: <span th:text="${pedido.data}"></span></p>
+			<p>Destino: <span th:text="${pedido.destino}"></span></p>
+			<p>Produto: <span th:text="${pedido.produto}"></span></p>
+			<p>Saldo: <span th:text="${pedido.saldo}"></span></p>
+		</div>
+	</div>
+	
+		 <th:block th:include="mensagemValidacao"></th:block>
+		<div class="container formCarga">
+		<form method="post" th:object="${carga}">
+			Data da Carga: <input type="date" value="" name="dataCarga"/>
+			Motorista: <input type="text" value="" name="nomeMotorista" placeholder="Nome do Motorista"/>
+			Unidade1: <input type="text" value="" name="unidade1" placeholder="Placa do Cavalo Mecânico"/>
+			Unidade2: <input type="text" value="" name="unidade2" placeholder="Placa da Carreta Tanque 1"/>
+			Unidade3: <input type="text" value="" name="unidade3" placeholder="Placa da Carreta Tanque 2"/>
+			Capacidade: <input type="number" value="" name="capacidade" placeholder="Metro Cúbico (m³)" class="validate"/>
+			<button class="waves-effect waves-light btn" type="submit">Adicionar</button>
+		</form>
+		</div>
+
+	<table class="container tabelaCarga">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Data da Carga</th>
+				<th>Motorista</th>
+				<th>Unidade1</th>
+				<th>Unidade2</th>
+				<th>Unidade3</th>
+				<th>Capacidade</th>
+				<th>Deletar</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="carga : ${cargas}">
+				<td><span th:text="${carga.id}"></span></td>
+				<td><span th:text="${carga.dataCarga}"></span></td>
+				<td><span th:text="${carga.nomeMotorista}"></span></td>
+				<td><span th:text="${carga.unidade1}"></span></td>
+				<td><span th:text="${carga.unidade2}"></span></td>
+				<td><span th:text="${carga.unidade3}"></span></td>
+				<td><span th:text="${carga.capacidade}"></span></td>
+				<td><a class="waves-effect waves-light btn-small" th:href="${(#mvc.url('PC#deletarCarga').arg(0, carga.id)).build()}"><i class="material-icons left">delete</i></a></td>
+			</tr>
+		</tbody>
+	</table>
+	
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+
+</body>
+
+
+</html>

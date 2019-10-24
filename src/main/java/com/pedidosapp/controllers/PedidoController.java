@@ -29,9 +29,12 @@ public class PedidoController {
 	public String form(){
 		return "pedido/formPedido";
 	}
+
+
 	
 	@RequestMapping(value="/cadastrarPedido", method=RequestMethod.POST)
 	public String form(@Valid Pedido pedido, BindingResult result, RedirectAttributes attributes){
+		System.out.println("tese");
 		if(result.hasErrors()){
 			attributes.addFlashAttribute("mensagem", "Verifique os campos!");
 			return "redirect:/cadastrarPedido";
